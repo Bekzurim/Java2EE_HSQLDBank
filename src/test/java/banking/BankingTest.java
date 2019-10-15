@@ -71,5 +71,23 @@ public class BankingTest {
 		ds.setUser("sa");
 		ds.setPassword("sa");
 		return ds;
-	}	
+        }
+        
+        @Test(expected = Exception.class)
+	public void notEnoughMoney() throws Exception {
+		float argentClient1 = myDAO.balanceForCustomer(0);
+                myDAO.bankTransferTransaction(1,2,argentClient1+5f);
+	}
+	
+	@Test(expected = Exception.class)
+	public void WhoIsTheDebitor() throws Exception {
+		float argentClient1 = myDAO.balanceForCustomer(1);
+		myDAO.bankTransferTransaction(22,1,10f);		
+	}
+
+	@Test(expected = Exception.class)
+	public void WhoIsTheCreditor() throws Exception {
+		float argentClient1 = myDAO.balanceForCustomer(1);
+		myDAO.bankTransferTransaction(1,22,10f);
+        }
 }
